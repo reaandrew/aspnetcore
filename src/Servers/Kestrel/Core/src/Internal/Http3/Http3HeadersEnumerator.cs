@@ -29,7 +29,7 @@ internal sealed class Http3HeadersEnumerator : IEnumerator<KeyValuePair<string, 
 
     public Func<string, Encoding?> EncodingSelector { get; set; } = KestrelServerOptions.DefaultHeaderEncodingSelector;
 
-    public int QPackStaticTableId => GetResponseHeaderStaticTableId(_knownHeaderType);
+    public (int index, bool matchedValue) GetQPackStaticTableId() => HttpHeadersCompression.MatchKnownHeaderQPack(_knownHeaderType, Current.Value);
     public KeyValuePair<string, string> Current { get; private set; }
     object IEnumerator.Current => Current;
 
